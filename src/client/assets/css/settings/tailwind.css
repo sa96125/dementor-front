@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+
+.input {
+  @apply flex justify-center items-center;
+}
+
+@tailwind utilities;
