@@ -1,0 +1,39 @@
+{
+  "name": "goatjake",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "npm run tailwind:build & vite --host",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "tailwind:build": "tailwind build -i ./src/client/assets/css/settings/tailwind.css -o ./src/client/assets/css/index.css",
+    "apollo:codegen": "rimraf src/__generated__ &&  &&apollo client:codegen src/__generated__ --outputFlat --target=typescript "
+  },
+  "dependencies": {
+    "@apollo/client": "^3.5.6",
+    "apollo": "^2.33.9",
+    "graphql": "^16.2.0",
+    "postcss-nesting": "^10.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-helmet": "^6.1.0",
+    "react-hook-form": "^7.22.5",
+    "react-router-dom": "^6.2.1",
+    "rimraf": "^3.0.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@tailwindcss/forms": "^0.4.0",
+    "@tailwindcss/typography": "^0.5.0",
+    "@types/node": "^17.0.4",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "@types/react-helmet": "^6.1.5",
+    "@vitejs/plugin-react": "^1.0.7",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.5",
+    "postcss-import": "^14.0.2",
+    "tailwindcss": "^3.0.7",
+    "typescript": "^4.4.4",
+    "vite": "^2.7.2"
+  }
+}
