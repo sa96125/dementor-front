@@ -1,16 +1,10 @@
 module.exports = {
   client: {
-    includes: ["./src/**/*.tsx"],
+    includes: ["./src/**/*.{tsx,ts}"],
+    tagName: "gql",
     service: {
-      name: "de-mentor-backend",
-      tagName: "gql",
-      url: "https://localhost:4000/graphql",
-      // optional headers
-      headers: {
-        authorization: "Bearer lkjfalkfjadkfjeopknavadf",
-      },
-      // optional disable SSL validation check
-      skipSSLValidation: true,
+      name: "deMentor-backend",
+      url: "http://localhost:4000/graphql",
     },
   },
 };
