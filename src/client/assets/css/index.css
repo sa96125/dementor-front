@@ -638,12 +638,12 @@ select {
   width: 3.5rem;
 }
 
-.max-w-screen-sm {
-  max-width: 640px;
+.w-64 {
+  width: 16rem;
 }
 
-.max-w-2xl {
-  max-width: 42rem;
+.max-w-screen-sm {
+  max-width: 640px;
 }
 
 .flex-col {
@@ -682,6 +682,10 @@ select {
 
 .pb-10 {
   padding-bottom: 2.5rem;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .font-serif {
