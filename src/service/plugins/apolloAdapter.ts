@@ -4,8 +4,8 @@ import {
   InMemoryCache,
   makeVar,
 } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
 import { LOCAL_STORAGE_TOKEN } from '../../constants';
+import { setContext } from '@apollo/client/link/context';
 
 const token = localStorage.getItem(LOCAL_STORAGE_TOKEN);
 export const isLoggedInVar = makeVar(Boolean(token));
@@ -37,7 +37,7 @@ export const client = new ApolloClient({
           },
           token: {
             read() {
-              return authTokenVar;
+              return authTokenVar();
             },
           },
         },
