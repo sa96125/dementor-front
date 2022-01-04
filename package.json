@@ -2,11 +2,11 @@
   "name": "dementor-front",
   "version": "0.0.0",
   "scripts": {
-    "dev": "npm run tailwind:build & vite --host",
+    "dev": "npm run apollo:codegen & npm run tailwind:build & vite --host",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "tailwind:build": "tailwind build -i ./src/client/assets/css/settings/tailwind.css -o ./src/client/assets/css/index.css",
-    "apollo:codegen": "apollo client:codegen src/__generated__ --target=typescript --outputFlat"
+    "apollo:codegen": "rimraf src/__generated__ && apollo client:codegen src/__generated__ --target=typescript --outputFlat"
   },
   "dependencies": {
     "@apollo/client": "^3.2.7",
