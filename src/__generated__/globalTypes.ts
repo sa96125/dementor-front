@@ -14,13 +14,13 @@ export enum UserRole {
 
 export interface CreateAccountInput {
   email: string;
-  password?: string | null;
+  password: string;
   role: UserRole;
 }
 
 export interface LoginInput {
   email: string;
-  password?: string | null;
+  password: string;
 }
 
 //==============================================================
