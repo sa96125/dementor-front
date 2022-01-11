@@ -1,5 +1,6 @@
 import { gql, useQuery } from '@apollo/client';
 import { isLoggedInVar } from '../../service/plugins/apolloAdapter';
+import { meQuery_me } from '../../__generated__/meQuery';
 
 const ME_QUERY = gql`
   query meQuery {
@@ -7,14 +8,13 @@ const ME_QUERY = gql`
       id
       email
       role
-      verified
     }
   }
 `;
 
-export const LoggedInRouter: React.FC = () => {
-  const { data, loading, error } = useQuery(ME_QUERY);
-  console.log(error);
+export const LoggedInRouter = () => {
+  const { data, loading, error } = useQuery<meQuery_me>(ME_QUERY);
+  console.log(data);
   if (loading) {
     return (
       <div className=" h-screen flex justify-center items-center">

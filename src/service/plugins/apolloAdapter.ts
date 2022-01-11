@@ -32,7 +32,7 @@ export const client = new ApolloClient({
         fields: {
           isLoggedIn: {
             read() {
-              return isLoggedInVar;
+              return isLoggedInVar();
             },
           },
           token: {
