@@ -12,6 +12,11 @@ export enum UserRole {
   Mentor = "Mentor",
 }
 
+export interface CategoryInput {
+  page?: number | null;
+  slug: string;
+}
+
 export interface CreateAccountInput {
   email: string;
   password: string;
@@ -21,6 +26,14 @@ export interface CreateAccountInput {
 export interface LoginInput {
   email: string;
   password: string;
+}
+
+export interface PostsInput {
+  page?: number | null;
+}
+
+export interface VerifyEmailInput {
+  code: string;
 }
 
 //==============================================================

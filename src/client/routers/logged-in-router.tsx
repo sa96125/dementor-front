@@ -1,21 +1,19 @@
-import { gql, useQuery } from '@apollo/client';
-import { isLoggedInVar } from '../../service/plugins/apolloAdapter';
-import { meQuery_me } from '../../__generated__/meQuery';
-
-const ME_QUERY = gql`
-  query meQuery {
-    me {
-      id
-      email
-      role
-    }
-  }
-`;
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Header } from '../components/header';
+import { useMe } from '../hooks/useMe';
+import { NotFound } from '../pages/404';
+import { Category } from '../pages/category';
+import { Community } from '../pages/community';
+import { Documents } from '../pages/documents';
+import { Home } from '../pages/home';
+import { MyPage } from '../pages/mypage';
+import { Posts } from '../pages/posts';
+import { Team } from '../pages/team';
+import { ConFirmEmail } from '../pages/user/confirm-email';
 
 export const LoggedInRouter = () => {
-  const { data, loading, error } = useQuery<meQuery_me>(ME_QUERY);
-  console.log(data);
-  if (loading) {
+  const { data, loading, error } = useMe();
+  if (!data || loading || error) {
     return (
       <div className=" h-screen flex justify-center items-center">
         loading...
@@ -23,8 +21,19 @@ export const LoggedInRouter = () => {
     );
   }
   return (
-    <div>
-      <button onClick={() => isLoggedInVar(false)}>logout</button>
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/confirm" element={<ConFirmEmail />} />,
+        <Route path="/" element={<Home />} />,
+        <Route path="/we" element={<Team />} />,
+        <Route path="/documents" element={<Documents />} />,
+        <Route path="/posts" element={<Posts />} />,
+        <Route path="/community" element={<Community />} />,
+        <Route path="/community/:slug" element={<Community />} />,
+        <Route path="/my-page" element={<MyPage />} />,
+        <Route path="*" element={<NotFound />} />,
+      </Routes>
+    </Router>
   );
 };

@@ -8,8 +8,12 @@ import {
   loginMutationVariables,
 } from '../../__generated__/loginMutation';
 import { Button } from '../components/common/button';
-import { authTokenVar, isLoggedInVar } from '../../service/plugins/apolloAdapter';
+import {
+  authTokenVar,
+  isLoggedInVar,
+} from '../../service/plugins/apolloAdapter';
 import { LOCAL_STORAGE_TOKEN } from '../../constants';
+import { BackgroundAnimation } from '../components/background-animation';
 
 const LOGO = '/src/client/assets/img/phi.png';
 
@@ -43,6 +47,8 @@ export const Login = () => {
       login: { ok, token },
     } = data;
 
+    console.log(data)
+
     if (ok && token) {
       localStorage.setItem(LOCAL_STORAGE_TOKEN, token);
       authTokenVar(token);
@@ -53,13 +59,13 @@ export const Login = () => {
   const [loginMutation, { data: loginMutationResults, loading }] = useMutation<
     loginMutation,
     loginMutationVariables
-  >(LOGIN_MUTATION, {
-    onCompleted,
-  });
+  >(LOGIN_MUTATION, { onCompleted });
+
 
   const onSubmit = () => {
     if (!loading) {
       const { email, password } = getValues();
+
       loginMutation({
         variables: {
           loginInput: {
@@ -77,77 +83,97 @@ export const Login = () => {
   };
 
   return (
-    <section className="h-screen flex flex-col items-center justify-center">
+    <>
       <Helmet>
         <title>Login | DeMentor</title>
       </Helmet>
-      <div className="w-full max-w-screen-sm">
-        <div className="flex flex-col items-center">
-          <img className="w-14" src={LOGO} alt="" />
-          <p className=" lg:text-4xl mt-5 font-serif">Welcome to DeMentor</p>
-          <p className=" text-lg">
-            the community of <b className="font-serif">779,455</b> amazing
-            developers
-          </p>
-        </div>
-        <div className=" bg-white flex justify-center items-center w-full rounded-sm mt-7 pb-10">
-          <form
-            onSubmit={handleSubmit(onSubmit, onInvalid)}
-            className="grid gap-2 w-64"
-          >
-            <div>
-              <div className=" text-sm">Email address</div>
-              <input
-                {...register('email', {
-                  required: '이메일을 입력해주세요.',
-                  pattern:
-                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-                })}
-                type="email"
-                name="email"
-                className="w-full border-1 h-8 rounded-sm"
-              />
-              {errors.email?.message && (
-                <FormError errorMessage={errors.email?.message} />
-              )}
-              {errors.email?.type === 'pattern' && (
-                <FormError errorMessage={'Please enter a valid email'} />
-              )}
+
+
+      <BackgroundAnimation />
+      <div className="min-h-screen flex items-center justify-center overflow-hidden bg-[#f2f3e5] ">
+        <form
+          className=" z-10 w-full max-w-md min-w-max p-8 h-auto rounded-lg shadow-2xl flex flex-col items-center justify-center bg-white"
+          onSubmit={handleSubmit(onSubmit, onInvalid)}
+        >
+          <img className="w-12" src={LOGO} alt="" />
+          <h4 className=" font-mono text-xs my-2">D e m e n t o R</h4>
+
+          <h2 className="font-serif text-lg my-5">
+            The community of <strong className=" text-zinc-900">779</strong>{' '}
+            amazing developers.
+          </h2>
+
+          <div className="mb-4 w-full">
+            <div
+              className=" text-xs font-extralight"
+              style={{ textShadow: '1px 1px 0px rgba(0, 0, 0, 0.55)' }}
+            >
+              e - m a i l{' '}
             </div>
-            <div>
-              <div className=" text-sm">Password</div>
-              <input
-                {...register('password', {
-                  required: '비밀번호를 입력해주세요.',
-                  minLength: 10,
-                })}
-                type="password"
-                name="password"
-                className="w-full h-8 rounded-sm"
-              />
-              {errors.password?.message && (
-                <FormError errorMessage={errors.password?.message} />
-              )}
-              {errors.password?.type === 'minLength' && (
-                <FormError errorMessage=" Password must be more than 10. " />
-              )}
-            </div>
-            <Button canClick={isValid} loading={loading} actionText="login" />
-            {loginMutationResults?.login.error && (
-              <FormError errorMessage={loginMutationResults.login.error} />
+            <input
+              autoFocus
+              className=" w-full border-none focus:border-b-2 text-sm p-1 my-1 bg-none"
+              style={{ outline: 'none', borderBottom: '2px solid' }}
+              {...register('email', {
+                required: 'Please enter a email address.',
+                pattern:
+                  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              })}
+              type="email"
+              name="email"
+            />
+            {errors.email?.message && (
+              <FormError errorMessage={errors.email?.message} />
             )}
-          </form>
-        </div>
-        <div className=" text-sm text-center">
-          New to DeMentor?
-          <Link to="/create-account" className=" hover:underline">
-            Create an account
-          </Link>
-        </div>
-        <div className=" text-xs text-center">
-          Terms Privacy Security Contact DeMentor
-        </div>
+            {errors.email?.type === 'pattern' && (
+              <FormError errorMessage={'Please enter a valid email'} />
+            )}
+          </div>
+
+          <div className="mb-4 w-full">
+            <div
+              className=" text-xs font-extralight"
+              style={{ textShadow: '1px 1px 0px rgba(0, 0, 0, 0.55)' }}
+            >
+              p a s s w o r d
+            </div>
+            <input
+              className=" w-full border-none focus:outline-none focus:outline-0 text-sm p-1 my-1 bg-none"
+              style={{ outline: 'none', borderBottom: '2px solid' }}
+              {...register('password', {
+                required: 'Please enter a password.',
+                minLength: 10,
+              })}
+              type="password"
+              name="password"
+            />
+            {errors.password?.message && (
+              <FormError errorMessage={errors.password?.message} />
+            )}
+            {errors.password?.type === 'minLength' && (
+              <FormError errorMessage=" Password must be more than 10. " />
+            )}
+          </div>
+
+          <Button
+            canClick={isValid}
+            loading={loading}
+            actionText={`${isValid ? "Let's get started." : 'Login'}`}
+          />
+          {loginMutationResults?.login.error && (
+            <FormError errorMessage={loginMutationResults.login.error} />
+          )}
+          <h4 className=" mt-4 mb text-sm text-center text-neutral-700">
+            New to DeMentor?{' '}
+            <Link to="/create-account" className=" hover:underline">
+              Create an account
+            </Link>
+          </h4>
+          <h5 className=" text-xs text-center text-neutral-700">
+            terms Privacy Security Contact
+          </h5>
+        </form>
       </div>
-    </section>
+    </>
   );
 };

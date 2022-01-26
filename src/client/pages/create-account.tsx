@@ -32,7 +32,6 @@ export const CreateAccount = () => {
     register,
     handleSubmit,
     getValues,
-    watch,
     formState: { errors, isValid },
   } = useForm<ICreateAccountForm>({
     mode: 'onChange',
@@ -49,7 +48,7 @@ export const CreateAccount = () => {
     } = data;
 
     if (ok) {
-      navigate('/login');
+      navigate('/');
     }
   };
 
